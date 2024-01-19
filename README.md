@@ -6,14 +6,23 @@ The CrewAI Agent and Task Management Application is a Flask-based web applicatio
 
 **Features**
 
-Set OpenAI API Key: Allows the application to interact with OpenAI's services.
-Create AI Agents: Define AI agents with specific roles, goals, and other characteristics.
-Assign Tasks: Assign tasks to created AI agents.
-Task Management: View, delete, or reassign tasks.
-Execute Tasks: Run selected tasks and view the output.
-Prerequisites
-Before you begin, ensure you have met the following requirements:
+Set OpenAI API Key:
+Allows the application to interact with OpenAI's services.
 
+Create AI Agents: 
+Define AI agents with specific roles, goals, and other characteristics.
+
+Assign Tasks:
+ Assign tasks to created AI agents.
+
+Task Management: 
+View, delete, or reassign tasks.
+
+Execute Tasks:
+ Run selected tasks and view the output.
+
+**Prerequisites**
+Before you begin, ensure you have met the following requirements:
 Python 3.x installed on your system.
 Flask library installed (pip install flask).
 Visual Studio Code (VS Code) installed for code editing and execution.
