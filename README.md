@@ -1,8 +1,11 @@
-CrewAI Agent and Task Management Application
-Introduction
+**CrewAI Agent and Task Management Application**
+
+**Introduction**
+
 The CrewAI Agent and Task Management Application is a Flask-based web application designed to manage and execute tasks using AI agents. This application allows users to create AI agents with specific roles and goals, assign tasks to these agents, and execute these tasks. It is built to showcase the interaction between users, AI agents, and task management in a simple and intuitive interface.
 
-Features
+**Features**
+
 Set OpenAI API Key: Allows the application to interact with OpenAI's services.
 Create AI Agents: Define AI agents with specific roles, goals, and other characteristics.
 Assign Tasks: Assign tasks to created AI agents.
