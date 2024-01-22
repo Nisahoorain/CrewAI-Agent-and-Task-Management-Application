@@ -146,21 +146,21 @@
         <label for="role">Role:</label><br>
         <p style="font-size: 12px; padding: 0; margin: 0;">Think of it like a job title for the AI. What should we call
             the AI's position or function? Examples could be "Chat Assistant" or "Task Manager."</p>
-        <input type="text" id="role" name="role"><br>
+        <input type="text" id="role" name="role" required><br>
 
         <label for="goal">Goal:</label><br>
         <p style="font-size: 12px; padding: 0; margin: 0;">What's the main thing we want the AI to achieve? Is it
             helping people with tasks, providing information, or something else? Describe the AI's primary purpose or
             objective.</p>
-        <input type="text" id="goal" name="goal"><br>
+        <input type="text" id="goal" name="goal" required><br>
 
         <label>Verbose:</label><br>
         <div style="display: flex;width: 20px ;">
-            <input type="radio" id="verbose_true" name="verbose" value="true">
+            <input type="radio" id="verbose_true" name="verbose" value="true" required>
             <label style="margin-top:0px;" for="verbose_true">True</label><br>
         </div>
         <div style="display: flex;width: 20px ;">
-            <input type="radio" id="verbose_false" name="verbose" value="false">
+            <input type="radio" id="verbose_false" name="verbose" value="false" required>
             <label style="margin-top:0px;" for="verbose_false">False</label><br>
         </div>
 
@@ -169,16 +169,16 @@
         <p style="font-size: 12px; padding: 0; margin: 0;">Imagine the AI as a character. What's its background story or
             history? This could include details about how it was trained, what data it learned from, or any unique
             features that make it special.</p>
-        <input type="text" id="backstory" name="backstory"><br>
+        <input type="text" id="backstory" name="backstory" required><br>
 
         <label>Allow Delegation:</label><br>
         <div style="display: flex;width: 20px ;">
-            <input type="radio" id="delegation_true" name="allow_delegation" value="true">
-            <label style="margin-top:0px;" for="delegation_true">True</label><br>
+            <input type="radio" id="delegation_true" name="allow_delegation" required value="true">
+            <label style="margin-top:0px;" for="delegation_true" >True</label><br>
         </div>
 
         <div style="display: flex;width: 20px ;">
-            <input type="radio" id="delegation_false" name="allow_delegation" value="false">
+            <input type="radio" id="delegation_false" name="allow_delegation" required value="false">
             <label style="margin-top:0px;" for="delegation_false">False</label><br>
 
         </div>
@@ -189,7 +189,7 @@
     <h2>Assign a Task for CrewAI Agent</h2>
     <form action="/create_task" method="post">
         <label for="selected_agent">Select Agent:</label><br>
-        <select id="selected_agent" name="selected_agent" onchange="showAgentDetails()">
+        <select id="selected_agent" name="selected_agent" onchange="showAgentDetails()" required>
             <option value="">Select an Agent</option>
             {% for agent in agents %}
             <option value="{{ agent }}">{{ agent }}</option>
@@ -199,13 +199,13 @@
         <div id="agent_details"></div>
 
         <label for="task_name">Task Name:</label><br>
-        <input type="text" id="task_name" name="task_name"><br>
+        <input type="text" id="task_name" name="task_name" required><br>
 
         <label for="task_description">Task Description:</label><br>
         <p style="font-size: 12px; padding: 0; margin: 0;">What does the AI need to do for a specific task? Describe it
             like you're explaining the task to someone in a few short sentences. For example, if it's a task to answer
             customer questions, the description could be "Help customers with inquiries about products.</p>
-        <input type="text" id="task_description" name="task_description"><br>
+        <input type="text" id="task_description" name="task_description" required><br>
 
         <input type="submit" value="Add Task">
     </form>
@@ -215,22 +215,25 @@
     <h2>Task Execution Output Options</h2>
     <div>
         <div style="display: flex;width: 50% ;">
-            <input  style="margin-top: 12px;width: 20px;" type="radio" id="output_verbose" name="execution_output" value="verbose" checked>
-        <label style="width: 70%;" for="output_verbose">Output in Verbose</label><br>
+            <input style="margin-top: 12px;width: 20px;" type="radio" id="output_verbose" name="execution_output"
+                value="verbose" checked>
+            <label style="width: 70%;" for="output_verbose">Output in Verbose</label><br>
         </div>
-        
+
 
         <div style="display: flex;width: 50% ;">
-        <input type="radio" style="margin-top: 12px;width: 20px;" id="output_console" name="execution_output" value="console">
-        <label style="width: 70%;" for="output_console">Output in Console</label><br>
+            <input type="radio" style="margin-top: 12px;width: 20px;" id="output_console" name="execution_output"
+                value="console">
+            <label style="width: 70%;" for="output_console">Output in Console</label><br>
         </div>
-        
+
 
         <div style="display: flex;width: 50% ;">
-            <input type="radio" style="margin-top: 12px;width: 20px;" id="output_both" name="execution_output" value="both">
+            <input type="radio" style="margin-top: 12px;width: 20px;" id="output_both" name="execution_output"
+                value="both">
             <label style="width: 70%;" for="output_both">Output in Both Verbose and Console</label>
-            </div>
-            
+        </div>
+
 
 
     </div>
@@ -289,87 +292,96 @@
     }
 
     function deleteTask(task) {
-    const confirmation = confirm(`Are you sure you want to delete the task: ${task}?`);
+        const confirmation = confirm(`Are you sure you want to delete the task: ${task}?`);
 
-    if (confirmation) {
-        fetch('/delete_task', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `task=${encodeURIComponent(task)}`
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-            loadTasks(); // Reload tasks
-        });
-    } else {
-        alert('Delete operation canceled.');
+        if (confirmation) {
+            fetch('/delete_task', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `task=${encodeURIComponent(task)}`
+            })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    loadTasks(); // Reload tasks
+                });
+        } else {
+            alert('Delete operation canceled.');
+        }
     }
-}
 
-function reassignTask(task) {
-    const confirmation = confirm(`Are you sure you want to reassign the task: ${task}?`);
+    function reassignTask(task) {
+        const confirmation = confirm(`Are you sure you want to reassign the task: ${task}?`);
 
-    if (confirmation) {
-        fetch('/reassign_task', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `task=${encodeURIComponent(task)}`
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-            loadTasks(); // Reload tasks
-        });
-    } else {
-        alert('Reassign operation canceled.');
+        if (confirmation) {
+            fetch('/reassign_task', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `task=${encodeURIComponent(task)}`
+            })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    loadTasks(); // Reload tasks
+                });
+        } else {
+            alert('Reassign operation canceled.');
+        }
     }
-}
 
 
     window.onload = function () {
         loadTasks(); // Load tasks when page loads
     };
-   
 
-  function executeSelectedTasks() {
-    let executeButton = document.getElementById('executeButton');
-    executeButton.disabled = true;
 
-    let executionStatusDiv = document.getElementById('executionStatus');
-    executionStatusDiv.innerHTML = 'Executing...';
+    function executeSelectedTasks() {
+        let executeButton = document.getElementById('executeButton');
+        let selectedTasks = document.querySelectorAll('.task-checkbox:checked');
 
-    let selectedTasks = [];
-    document.querySelectorAll('.task-checkbox:checked').forEach(checkbox => {
-        selectedTasks.push(checkbox.value);
-    });
-
-    let outputOption = document.querySelector('input[name="execution_output"]:checked').value;
-
-    fetch('/execute_tasks', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ tasks: selectedTasks })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (outputOption === 'verbose' || outputOption === 'both') {
-            executionStatusDiv.innerHTML = 'Execution completed! Result: ' + JSON.stringify(data.result);
+        // Check if at least one task is selected
+        if (selectedTasks.length === 0) {
+            alert('Please select at least one task before executing.');
+            return;
         }
-        if (outputOption === 'console' || outputOption === 'both') {
-            console.log(data.result);
-        }
-    })
-    .finally(() => {
-        executeButton.disabled = false;  // Enable the button after execution
-    });
-}
+
+        executeButton.disabled = true;
+
+        let executionStatusDiv = document.getElementById('executionStatus');
+        executionStatusDiv.innerHTML = 'Executing...';
+
+        let selectedTasksValues = Array.from(selectedTasks).map(checkbox => checkbox.value);
+
+        let outputOption = document.querySelector('input[name="execution_output"]:checked').value;
+
+        fetch('/execute_tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ tasks: selectedTasksValues })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (outputOption === 'verbose' || outputOption === 'both') {
+                    executionStatusDiv.innerHTML = 'Execution completed! Result: ' + JSON.stringify(data.result);
+                }
+                if (outputOption === 'console' || outputOption === 'both') {
+                    executionStatusDiv.innerHTML = 'Execution completed! Result! check console';
+                    console.log(data.result);
+                }
+            })
+            .finally(() => {
+                executeButton.disabled = false;  // Enable the button after execution
+            });
+    }
+
+
+
 
 </script>
 
