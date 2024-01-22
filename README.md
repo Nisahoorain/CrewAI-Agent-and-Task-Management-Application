@@ -47,6 +47,7 @@ Open the Application in VS Code: Open VS Code, go to File > Open Folder, and sel
 
 Install Required Python Packages: Open the terminal in VS Code (Ctrl+`) and run pip install flask.
 
+Install CrewAi :- pip install crewai
 **Setting** Up
 
 Set the OpenAI API Key: Before using the application, set the OpenAI API Key. The application provides a form to enter and save this key. Ensure you have a valid OpenAI API key.
