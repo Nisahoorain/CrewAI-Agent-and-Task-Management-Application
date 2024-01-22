@@ -145,21 +145,21 @@ def find_agent_for_task(task_description):
                     agent_backstory = agent_details.get('Backstory', 'Default Backstory')  # Provide a default value if not present
                     allow_delegation = agent_details.get('Allow Delegation', 'False')  # Provide a default value if not present
 
-                    # Print or use the extracted information as needed
-                    print(f"Agent Role: {agent_role}")
-                    print(f"Agent Goal: {agent_goal}")
-                    print(f"Agent Verbose: {agent_verbose}")
-                    print(f"Agent Backstory: {agent_backstory}")
-                    print(f"Allow Delegation: {allow_delegation}")
+                    # # Print or use the extracted information as needed
+                    # print(f"Agent Role: {agent_role}")
+                    # print(f"Agent Goal: {agent_goal}")
+                    # print(f"Agent Verbose: {agent_verbose}")
+                    # print(f"Agent Backstory: {agent_backstory}")
+                    # print(f"Allow Delegation: {allow_delegation}")
 
                     if agent_goal is not None and agent_verbose is not None:
                         created_agent = Agent(role=agent_role, goal=agent_goal, verbose=agent_verbose, backstory=agent_backstory)
-                        print(f"Found Agent: {created_agent}")
+                        # print(f"Found Agent: {created_agent}")
                         return created_agent
                     else:
                         # Handle the case where goal or verbose information is missing
                         # You may want to log an error or handle it based on your application's needs
-                        print(f"Agent details are incomplete for {agent_role}. Skipping.")
+                        # print(f"Agent details are incomplete for {agent_role}. Skipping.")
                         pass
 
     except FileNotFoundError:
@@ -167,7 +167,7 @@ def find_agent_for_task(task_description):
 
     # Handle the case where the agent is not found
     # You may want to log an error or handle it based on your application's needs
-    print(f"Agent with role {agent_role} not found in agents.txt.")
+    # print(f"Agent with role {agent_role} not found in agents.txt.")
     return None
 
 # ... [remaining Flask app code] ...
@@ -200,8 +200,8 @@ def execute_tasks():
         print(result)  # Print to the terminal
         file.write(str(result))  # Write to the file
 
-    print(f'Results have been written to {output_file}')
-    print('All code has been consolidated and saved in final_code_output.txt')
+    # print(f'Results have been written to {output_file}')
+    # print('All code has been consolidated and saved in final_code_output.txt')
 
     return jsonify({"result": result})
 if __name__ == '__main__':
