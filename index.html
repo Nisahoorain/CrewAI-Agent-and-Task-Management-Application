@@ -174,7 +174,7 @@
         <label>Allow Delegation:</label><br>
         <div style="display: flex;width: 20px ;">
             <input type="radio" id="delegation_true" name="allow_delegation" required value="true">
-            <label style="margin-top:0px;" for="delegation_true" >True</label><br>
+            <label style="margin-top:0px;" for="delegation_true">True</label><br>
         </div>
 
         <div style="display: flex;width: 20px ;">
@@ -367,14 +367,20 @@
         })
             .then(response => response.json())
             .then(data => {
+                let executionResult = '';
+
                 if (outputOption === 'verbose' || outputOption === 'both') {
-                    executionStatusDiv.innerHTML = 'Execution completed! Result: ' + JSON.stringify(data.result);
+                    executionResult += 'Execution completed! Result: ' + JSON.stringify(data.result);
                 }
+
                 if (outputOption === 'console' || outputOption === 'both') {
-                    executionStatusDiv.innerHTML = 'Execution completed! Result! check console';
+                    executionResult += ' Execution completed! Result! Check console';
                     console.log(data.result);
                 }
+
+                executionStatusDiv.innerHTML = executionResult;
             })
+
             .finally(() => {
                 executeButton.disabled = false;  // Enable the button after execution
             });
